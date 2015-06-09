@@ -49,3 +49,7 @@ console.log(vehicles.toJSON());
 vehicles.each(function(vehicle) {
 	console.log(vehicle);
 });
+
+var Vehicle = Backbone.View.extend({
+
+});

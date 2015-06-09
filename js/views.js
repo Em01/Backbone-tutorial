@@ -110,25 +110,49 @@
 
 
 //Handling Model Events
-var Song = Backbone.Model.extend({
-	defaults: {
-		listeners: 0
-	}
-});
+// var Song = Backbone.Model.extend({
+// 	defaults: {
+// 		listeners: 0
+// 	}
+// });
 
-var SongView = Backbone.View.extend({
-	initialize: function(){
-		this.model.on("change", this.render, this);
-	},
+// var SongView = Backbone.View.extend({
+// 	initialize: function(){
+// 		this.model.on("change", this.render, this);
+// 	},
 
-	render: function(){
-		this.$el.html(this.model.get("title") + " -listeners: " + this.model.get("listeners"));
+// 	render: function(){
+// 		this.$el.html(this.model.get("title") + " -listeners: " + this.model.get("listeners"));
+
+// 		return this;
+// 	}
+// });
+
+// var song = new Song({ title: "Blue in green" });
+
+// var songView = new SongView({ el: "#container", model: song });
+// songView.render();
+
+
+
+
+
+
+//Templating
+
+var Song = Backbone.Model.extend();
+
+var SongView = Baclbone.View.extend({
+	render: function (){
+		var template = _.template($("#songTemplate").html());
+		var html = template(this.model.toJSON());
+		this.$el.html(html);
 
 		return this;
 	}
 });
 
-var song = new Song({ title: "Blue in green" });
+var song = new Song({ title: "Blue in Green" });
 
-var songView = new SongView({ el: "#container", model: song });
+var songView = new SongView({ el: "#container", model: song, plays: 1110 });
 songView.render();
