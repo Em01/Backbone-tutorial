@@ -77,32 +77,58 @@
 
 //Handling DOM events
 
-var Song = Backbone.Model.extend();
+// var Song = Backbone.Model.extend();
+
+// var SongView = Backbone.View.extend({
+// 	events: {
+// 		"click": "onClick",
+// 		"click .bookmark": "onClickBookmark",
+// 	},
+
+// 	onClick: function(){
+// 		console.log("Listen Clicked");
+// 	},
+
+// 	onClickBookmark: function(e){
+// 		e.stopPropagation();
+
+// 		console.log("Bookmark Clicked");
+// 	},
+
+// 	render: function() {
+// 		this.$el.html(this.model.get("title") + " <button>Listen</button> <button class='bookmark</button>");
+
+// 		return this;
+// 	}
+// });
+
+// var song = new Song({ title: "Blue in Green" });
+
+// var SongView = new SongView({ el: "#container", model: song });
+// songsView.render();
+
+
+
+//Handling Model Events
+var Song = Backbone.Model.extend({
+	defaults: {
+		listeners: 0
+	}
+});
 
 var SongView = Backbone.View.extend({
-	events: {
-		"click": "onClick",
-		"click .bookmark": "onClickBookmark",
+	initialize: function(){
+		this.model.on("change", this.render, this);
 	},
 
-	onClick: function(){
-		console.log("Listen Clicked");
-	},
-
-	onClickBookmark: function(e){
-		e.stopPropagation();
-		
-		console.log("Bookmark Clicked");
-	},
-
-	render: function() {
-		this.$el.html(this.model.get("title") + " <button>Listen</button> <button class='bookmark</button>");
+	render: function(){
+		this.$el.html(this.model.get("title") + " -listeners: " + this.model.get("listeners"));
 
 		return this;
 	}
 });
 
-var song = new Song({ title: "Blue in Green" });
+var song = new Song({ title: "Blue in green" });
 
-var SongView = new SongView({ el: "#container", model: song });
-songsView.render();
+var songView = new SongView({ el: "#container", model: song });
+songView.render();
