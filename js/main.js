@@ -52,4 +52,26 @@ vehicles.each(function(vehicle) {
 
 var Vehicle = Backbone.View.extend({
 
+	tagNAme: "li",
+
+	className: "vehicle",
+
+	attributes: {
+		"data-color": "red"
+	},
+
+	events: {
+		"click button": "onClickDelete"
+	},
+
+	onClickDelete: function() {
+		this.remove(vehicle);
+	},
+
+	render: function() {
+		this.$el.html(this.model.get("registrationNumber") + " <button>Delete</button>");
+
+		return this;
+	}
 });
+	
